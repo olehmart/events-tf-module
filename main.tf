@@ -71,19 +71,19 @@ locals {
 #}
 
 resource "google_pubsub_topic" "cloud-deploy" {
-  for_each = local.cloud_deploy_topics
+  for_each = toset(local.cloud_deploy_topics)
   project  = var.project_id
   name     = each.key
 }
 
 resource "google_pubsub_topic" "cloud-builds" {
-  for_each = local.cloud_build_topics
+  for_each = toset(local.cloud_build_topics)
   project  = var.project_id
   name     = each.key
 }
 
 resource "google_pubsub_subscription" "cloud-deploy-sub" {
-  for_each = local.cloud_deploy_topics
+  for_each = toset(local.cloud_deploy_topics)
   project  = var.project_id
   name     = "cdo-instrumentation-push"
   topic    = google_pubsub_topic.cloud-deploy[each.key].name
@@ -94,7 +94,7 @@ resource "google_pubsub_subscription" "cloud-deploy-sub" {
 }
 
 resource "google_pubsub_subscription" "cloud-builds-sub" {
-  for_each = local.cloud_build_topics
+  for_each = toset(local.cloud_build_topics)
   project  = var.project_id
   name     = "cdo-instrumentation-push"
   topic    = google_pubsub_topic.cloud-builds[each.key].name
