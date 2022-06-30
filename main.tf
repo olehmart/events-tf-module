@@ -85,7 +85,7 @@ resource "google_pubsub_topic" "cloud-builds" {
 resource "google_pubsub_subscription" "cloud-deploy-sub" {
   for_each = toset(local.cloud_deploy_topics)
   project  = var.project_id
-  name     = "cdo-instrumentation-push"
+  name     = "cdo-instrumentation-${each.key}-push"
   topic    = google_pubsub_topic.cloud-deploy[each.key].name
 
   push_config {
@@ -96,7 +96,7 @@ resource "google_pubsub_subscription" "cloud-deploy-sub" {
 resource "google_pubsub_subscription" "cloud-builds-sub" {
   for_each = toset(local.cloud_build_topics)
   project  = var.project_id
-  name     = "cdo-instrumentation-push"
+  name     = "cdo-instrumentation-${each.key}-push"
   topic    = google_pubsub_topic.cloud-builds[each.key].name
 
   push_config {
