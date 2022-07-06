@@ -1,9 +1,11 @@
 output "cloud_build_topics" {
-  value = google_pubsub_topic.cloud-builds.id
+  value = [for topic in google_pubsub_topic.cloud-builds: topic.id]
+  # value = google_pubsub_topic.cloud-builds.id
 }
 
 output "cloud_deploy_topics" {
-  value = google_pubsub_topic.cloud-deploy.id
+  value = [for topic in google_pubsub_topic.cloud-deploy: topic.id]
+  # value = google_pubsub_topic.cloud-deploy.id
 }
 
 output "cloud_build_subscriptions" {
