@@ -10,78 +10,23 @@ locals {
   cloud_build_topics = ["cloud-builds"]
 }
 
-#resource "google_pubsub_topic" "cloud-deploy-resources" {
-#  project = var.project_id
-#  name    = "cloud-deploy-resources"
-#}
-#
-#resource "google_pubsub_topic" "cloud-deploy-operations" {
-#  project = var.project_id
-#  name    = "cloud-deploy-operations"
-#}
-#
-#resource "google_pubsub_topic" "cloud-deploy-approvals" {
-#  project = var.project_id
-#  name    = "cloud-deploy-approvals"
-#}
-#
-#resource "google_pubsub_topic" "cloud-builds" {
-#  project = var.project_id
-#  name    = "cloud-builds"
-#}
-#
-#resource "google_pubsub_subscription" "cloud-deploy-resources-sub" {
-#  project = var.project_id
-#  name    = "cdo-instrumentation-push"
-#  topic   = google_pubsub_topic.cloud-deploy-resources.name
-#
-#  push_config {
-#    push_endpoint = "${local.webhook_receiver_url}/${local.cloud_deploy_events_path}"
-#  }
-#}
-#
-#resource "google_pubsub_subscription" "cloud-deploy-operations-sub" {
-#  project = var.project_id
-#  name    = "cdo-instrumentation-push"
-#  topic   = google_pubsub_topic.cloud-deploy-operations.name
-#
-#  push_config {
-#    push_endpoint = "${local.webhook_receiver_url}/${local.cloud_deploy_events_path}"
-#  }
-#}
-#
-#resource "google_pubsub_subscription" "cloud-deploy-approvals-sub" {
-#  project = var.project_id
-#  name    = "cdo-instrumentation-push"
-#  topic   = google_pubsub_topic.cloud-deploy-approvals.name
-#
-#  push_config {
-#    push_endpoint = "${local.webhook_receiver_url}/${local.cloud_deploy_events_path}"
-#  }
-#}
-#
-#resource "google_pubsub_subscription" "cloud-builds-sub" {
-#  project = var.project_id
-#  name    = "cdo-instrumentation-push"
-#  topic   = google_pubsub_topic.cloud-builds.name
-#
-#  push_config {
-#    push_endpoint = "${local.webhook_receiver_url}/${local.cloud_build_events_path}"
-#  }
-#}
-
+# Terraform > Module > google_pubsub_topic
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_topic
 resource "google_pubsub_topic" "cloud-deploy" {
   for_each = toset(local.cloud_deploy_topics)
   project  = var.project_id
   name     = each.key
 }
 
+# Terraform > Module > google_pubsub_topic
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_topic
 resource "google_pubsub_topic" "cloud-builds" {
   for_each = toset(local.cloud_build_topics)
   project  = var.project_id
   name     = each.key
 }
-
+# Terraform > Module > google_pubsub_subscription
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_subscription
 resource "google_pubsub_subscription" "cloud-deploy-sub" {
   for_each = toset(local.cloud_deploy_topics)
   project  = var.project_id
@@ -93,6 +38,8 @@ resource "google_pubsub_subscription" "cloud-deploy-sub" {
   }
 }
 
+# Terraform > Module > google_pubsub_subscription
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_subscription
 resource "google_pubsub_subscription" "cloud-builds-sub" {
   for_each = toset(local.cloud_build_topics)
   project  = var.project_id
@@ -104,6 +51,8 @@ resource "google_pubsub_subscription" "cloud-builds-sub" {
   }
 }
 
+# Terraform > Module > google_project_iam_member
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/google_project_iam
 resource "google_project_iam_member" "instrumentation-sa-cloud-deploy-viewer" {
   project = var.project_id
   role    = "roles/clouddeploy.viewer"
