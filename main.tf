@@ -2,7 +2,7 @@
 # https://www.terraform.io/docs/modules/index.html
 
 locals {
-  webhook_receiver_url = "https://us-central2-quiet-subset-354615.cloudfunctions.net"
+  webhook_receiver_url = "https://us-central1-quiet-subset-354615.cloudfunctions.net"
   cloud_deploy_events_path = "webhook_receiver"
   cloud_build_events_path = "webhook_receiver"
   instrumentation_sa_email = "cloud-deploy-enricher@quiet-subset-354615.iam.gserviceaccount.com"
