@@ -9,11 +9,13 @@ output "cloud_deploy_topics" {
 }
 
 output "cloud_build_subscriptions" {
-  value = google_pubsub_subscription.cloud-builds-sub.id
+  value = [for subscription in google_pubsub_subscription.cloud-builds-sub: subscription.id]
+  # value = google_pubsub_subscription.cloud-builds-sub.id
 }
 
 output "cloud_deploy_subscriptions" {
-  value = google_pubsub_subscription.cloud-deploy-sub.id
+  value = [for subscription in google_pubsub_subscription.cloud-deploy-sub: subscription.id]
+  # value = google_pubsub_subscription.cloud-deploy-sub.id
 }
 
 output "webhook_receiver_url" {
