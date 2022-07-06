@@ -23,7 +23,7 @@ output "webhook_receiver_url" {
 }
 
 output "webhook_cloud_deploy_path" {
-  value = local.cloud_deploy_topics
+  value = local.cloud_deploy_events_path
 }
 
 output "webhook_cloud_build_path" {
