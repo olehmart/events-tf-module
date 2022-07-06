@@ -1,17 +1,17 @@
 output "cloud_build_topics" {
-  value = google_pubsub_topic.cloud-builds[*].id
+  value = google_pubsub_topic.cloud-builds.id
 }
 
 output "cloud_deploy_topics" {
-  value = google_pubsub_topic.cloud-deploy[*].id
+  value = google_pubsub_topic.cloud-deploy.id
 }
 
 output "cloud_build_subscriptions" {
-  value = google_pubsub_subscription.cloud-builds-sub[*].id
+  value = google_pubsub_subscription.cloud-builds-sub.id
 }
 
 output "cloud_deploy_subscriptions" {
-  value = google_pubsub_subscription.cloud-deploy-sub[*].id
+  value = google_pubsub_subscription.cloud-deploy-sub.id
 }
 
 output "webhook_receiver_url" {
