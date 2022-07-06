@@ -9,7 +9,7 @@ output "cloud_deploy_topics" {
 }
 
 output "cloud_build_subscriptions" {
-  value = {for subscription, value in google_pubsub_subscription.cloud-builds-sub: subscription.topic => subscription.id}
+  value = {for subscription in google_pubsub_subscription.cloud-builds-sub: subscription.topic => subscription.id}
   # value = google_pubsub_subscription.cloud-builds-sub.id
 }
 
