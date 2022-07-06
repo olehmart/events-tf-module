@@ -20,7 +20,7 @@ resource "google_pubsub_topic" "cloud-deploy" {
 
 # Terraform > Module > google_pubsub_topic
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_topic
-resource "google_pubsub_topic" "cloud-builds" {
+resource "google_pubsub_topic" "cloud-build" {
   for_each = toset(local.cloud_build_topics)
   project  = var.project_id
   name     = each.key
@@ -40,11 +40,11 @@ resource "google_pubsub_subscription" "cloud-deploy-sub" {
 
 # Terraform > Module > google_pubsub_subscription
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_subscription
-resource "google_pubsub_subscription" "cloud-builds-sub" {
+resource "google_pubsub_subscription" "cloud-build-sub" {
   for_each = toset(local.cloud_build_topics)
   project  = var.project_id
   name     = "cdo-instrumentation-${each.key}-push"
-  topic    = google_pubsub_topic.cloud-builds[each.key].name
+  topic    = google_pubsub_topic.cloud-build[each.key].name
 
   push_config {
     push_endpoint = "${local.webhook_receiver_url}/${local.cloud_build_events_path}"

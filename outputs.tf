@@ -2,7 +2,7 @@
 # Type: list
 # Format: ["topic1", "topic2"]
 output "cloud_build_topics" {
-  value = [for topic in google_pubsub_topic.cloud-builds: topic.id]
+  value = [for topic in google_pubsub_topic.cloud-build: topic.id]
 }
 
 #List of Cloud Deploy topics
@@ -24,7 +24,7 @@ output "cloud_deploy_topics" {
 #   "<topic_ID>: <subscription_ID>"
 # }
 output "cloud_build_subscriptions" {
-  value = {for subscription in google_pubsub_subscription.cloud-builds-sub: subscription.topic => subscription.id}
+  value = {for subscription in google_pubsub_subscription.cloud-build-sub: subscription.topic => subscription.id}
 }
 
 # Map of Cloud Deploy subscriptions
