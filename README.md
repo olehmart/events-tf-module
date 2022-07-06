@@ -1,5 +1,5 @@
 # Terraform module: CDO instrumentation events
-This Terraform module is created for enabling Cloud Build&Cloud Deploy events pushing to CDO instrumentation project for further processing and creating DORA metrics.
+This Terraform module is created in order to enable Cloud Build&Cloud Deploy events pushing to CDO instrumentation project for further processing and creating DORA metrics.
 
 ### List of resources which will be created by this module:
 * Pub/Sub topics:
